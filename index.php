@@ -1,15 +1,23 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-        holi
-    </body>
-</html>
+<?php
+
+    if(!isset($_REQUEST['controlador'])){
+        require_once 'controlador/administrador.controlador.php';
+        $controller = new AdministradorControlador;
+        $controller->index();
+    }else{
+        $controller = $_REQUEST['controlador'].'Controlador';
+        $accion     = isset($_REQUEST['accion']) ? $_REQUEST['accion'] : 'Index';
+        $archivo = 'controlador/' . strtolower($_REQUEST['controlador']) . '.controlador.php';
+        if(file_exists($archivo)){
+            require_once $archivo;
+            $controller = new $controller();
+            if(method_exists($controller, $accion)){
+                call_user_func(array($controller, $accion));
+            }else{
+                call_user_func(array($controller, '')); 
+            }
+        }else{
+            header('location: ?controlador=usuario&accion=error404');
+        }
+    }
+?>
