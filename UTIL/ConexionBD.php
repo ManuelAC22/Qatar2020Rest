@@ -2,7 +2,7 @@
   const SERVER = "127.0.0.1";
   const USER = "root";
   const PASS = "";
-  const DATABASE = "bdqatar_mundial";
+  const DATABASE = "qatar";
   const PORT="3306";  
   private  $cn=null;
   
