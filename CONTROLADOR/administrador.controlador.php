@@ -7,17 +7,14 @@ require_once __DIR__. '/../negocio/administrador.negocio.php';
 
 class AdministradorControlador {
     
-    private $usuarioNegocio;
+    private $administradorNegocio;
     
     public function __CONSTRUCT() {
-        $this-> usuarioNegocio = new AdministradorNegocio();
+        $this-> administradorNegocio = new AdministradorNegocio();
     }
     
     public function index() {
-        require_once 'administrar/cabecera.php';
-        require_once 'administrar/menu.php';
         require_once 'administrar/contenido.php';
-        require_once 'administrar/pie.php';
     }
     
     public function error404() {
@@ -37,21 +34,21 @@ class AdministradorControlador {
     }
     
     
+    public function CerrarSesion(){
+        if(!session_id()) session_start();
+        unset($_SESSION['dni']);
+        unset($_SESSION['nombre']);
+        session_destroy();
+        echo '<script type="text/javascript">location.href = "index.php";</script>';
+    }
+
     public function ingresar() {
-        $data = "";//$this->usuarioNegocio->loginUsuario($_POST['usuario'], md5($_POST['contrasenia']));
+        $data = $this->administradorNegocio->loginUsuario($_POST['dni'], $_POST['clave']);
         if(!empty($data)){
             echo $data;
         } else {
             echo '';
         }
-    }
-    public function CerrarSesion(){
-        if(!session_id()) session_start();
-        unset($_SESSION['dni']);
-        unset($_SESSION['nombre']);
-        unset($_SESSION['usuario']);
-        session_destroy();
-        echo '<script type="text/javascript">location.href = "index.php";</script>';
     }
     
 }

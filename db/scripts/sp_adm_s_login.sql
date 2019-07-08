@@ -2,24 +2,24 @@
 DROP procedure IF EXISTS `sp_adm_s_login`;
 
 DELIMITER $$
-CREATE PROCEDURE `sp_adm_s_login`(IN `dni` varchar(50), IN `clave` VARCHAR(100))
+CREATE PROCEDURE `sp_adm_s_login`(IN `usuario` NVARCHAR(50), IN `contrasenia` NVARCHAR(100))
 BEGIN
 
-declare vdni varchar(50);
-declare vclave varchar(100);
+declare vusuario nvarchar(50);
+declare vcontrasenia nvarchar(100);
 
-set vdni = dni;
-set vclave = clave;
+set vusuario = usuario;
+set vcontrasenia = contrasenia;
 
 SELECT 
-    dni,
+    a.dni,
     nombre
 FROM
     administrador a INNER join persona p on a.dni = p.dni
 WHERE
-    a.dni = vdni
-    and a.clave = vclave
-    and a.estado = 1
+    a.dni = vusuario
+    and a.clave = vcontrasenia
+    and a.estado = 1;
 
 END$$
 

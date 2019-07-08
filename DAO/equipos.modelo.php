@@ -1,6 +1,6 @@
 <?php
 if(!session_id()) session_start();
-class AdministradorModelo {
+class EquiposModelo {
     private $pdo;
     public function __CONSTRUCT(){
         try {
@@ -12,15 +12,17 @@ class AdministradorModelo {
         }
     }
     
-    public function loginUsuario($usuario, $contrasenia) {
+    public function cargarEquipos() {
         try {
             $result = array();
-            $stm = $this->pdo->prepare("CALL sp_adm_s_login('$usuario', '$contrasenia')");
+            $stm = $this->pdo->prepare("CALL sp_adm_s_equipos()");
             $stm->execute();
             foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r){
                 $acceso = new stdClass();
-                $acceso->dni   = $r->dni;
-                $acceso->nombre     = $r->nombre;
+                $acceso->cod   = $r->cod;
+                $acceso->pais     = $r->pais;
+                $acceso->clasificado     = $r->clasificado;
+                $acceso->imagen     = $r->imagen;
                 array_push($result, $acceso);
             }
 
