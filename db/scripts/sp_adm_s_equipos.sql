@@ -10,7 +10,7 @@ SELECT
 	`cod`, 
     `pais`, 
     `clasificado`, 
-    `imagen` 
+    `image` 
 FROM `paises`;
 
 END$$

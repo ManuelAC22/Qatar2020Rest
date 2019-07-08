@@ -21,5 +21,9 @@ require_once __DIR__. '/../CONTROLADOR/configuraciones.controlador.php';
         $data = $this->equipos_modelo->cargarEquipos();
         return $this->configuraciones->setSuccess($data);
     }
+    public function guardarSeleccionado($pais, $select) {
+        $data = $this->equipos_modelo->guardarSeleccionado($pais, $select);
+        return $this->configuraciones->setSuccess($data);
+    }
     
  }

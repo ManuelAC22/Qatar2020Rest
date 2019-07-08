@@ -202,6 +202,13 @@ if(!isset($_SESSION['dni']) && !isset($_SESSION['nombre']) && !isset($_SESSION['
   <!-- pace -->
   <script src="assets/js/pace/pace.min.js"></script>
 
+  
+  <!-- PNotify -->
+  <script type="text/javascript" src="assets/js/notify/pnotify.core.js"></script>
+  <script type="text/javascript" src="assets/js/notify/pnotify.buttons.js"></script>
+  <script type="text/javascript" src="assets/js/notify/pnotify.nonblock.js"></script>
+
+
 
         <script src="assets/js/datatables/jquery.dataTables.min.js"></script>
         <script src="assets/js/datatables/dataTables.bootstrap.js"></script>

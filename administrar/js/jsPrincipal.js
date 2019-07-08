@@ -95,20 +95,97 @@ var jsEquipos = (function (jsEquipos, undefined) {
     },
 
     jsEquipos.cargarEquipos = function (){
-		$('.tbody_equipos').html('');
-		var d = jsEquipos.cargarDatosEquipos();
+    	var html = '<table id="tbl_equipos" class="table table-striped table-bordered">\
+                    <thead>\
+                      <tr>\
+                        <th></th>\
+                        <th>Código</th>\
+                        <th>País</th>\
+                        <th>Clasificado</th>\
+                      </tr>\
+                    </thead>\
+                    <tbody class="tbody_equipos"></tbody>\
+                   </table>'
+		$('.div_tbl_equipos').html(html);
+		var a = jsEquipos.cargarDatosEquipos();
+		var d = JSON.parse(a);
 
-		console.log(d);
+		var table = '';
+
+		for(var a in d){
+			var i = d[a];
+			table += '<tr>';
+
+			table += '<td><img src="'+i.image+'" style="max-height: 30px;"/></td>';
+			table += '<td>'+i.cod+'</td>';
+			table += '<td>'+i.pais+'</td>';
+			table += '<td><div class="checkbox">\
+                          <label>\
+                            <input type="checkbox" class="check_pais" value="'+i.cod+'" '+(i.clasificado == 1? 'checked' : '')+'>\
+                          </label>\
+                        </div></td>';
+
+			table += '</tr>';
+
+		}
+		$('.tbody_equipos').html(table);
     },
 
 
     jsEquipos.click = function (){
 		
-        $('.a').off('click');
-        $('.a').on('click', function () {
-        	
+        $('.check_pais').off('change');
+        $('.check_pais').on('change', function () {
+        	var pais = $(this).val();
+        	var c = ($(this).prop('checked')) ? 1 : 0
+
+			var a = JSON.parse(jsEquipos.guardarSeleccionado(pais,c));
+
+			var resp = a[0].resultado;
+
+			if(resp == 1){
+			new PNotify({
+                                title: 'Seleccionado',
+                                text: 'Equipo guardado como clasificado',
+                                type: 'success'
+                            });
+			}else if(resp == 2){
+				new PNotify({
+                                title: 'Seleccionado',
+                                text: 'Solo pueden clasificar 32 países',
+                                type: 'warning'
+                            });
+				jsEquipos.ready();
+			}else{
+
+				new PNotify({
+                                title: 'Error',
+                                text: 'Error en el proceso intentelo nuevamente',
+                                type: 'danger'
+                            });
+				jsEquipos.ready();
+			}
         });
     },
+
+    jsEquipos.guardarSeleccionado = function (pais, c){
+		var aRespuesta = null, oData = {};
+
+		oData.pais = pais;
+		oData.select = c;
+
+        var oOptions = {
+            cUrl: 'index.php?controlador=equipos&accion=guardarSeleccionado',
+            oData: oData,
+            bAsync: false,
+            fComplete: function (oResponse, data) {
+                aRespuesta = (data);
+            }
+        };
+        $.GetUrlData(oOptions);
+		
+		return aRespuesta;
+    }
 
     jsEquipos.cargarDatosEquipos = function (){
 		var aRespuesta = null, oData = {};

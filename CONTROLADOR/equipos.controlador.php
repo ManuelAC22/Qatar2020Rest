@@ -21,5 +21,14 @@ class EquiposControlador {
             echo '';
         }
     }
+
+    public function guardarSeleccionado() {
+        $data = $this->equiposNegocio->guardarSeleccionado($_POST['pais'], $_POST['select']);
+        if(!empty($data)){
+            echo $data;
+        } else {
+            echo '';
+        }
+    }
     
 }

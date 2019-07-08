@@ -19,17 +19,9 @@
                   <p class="text-muted font-13 m-b-30">
                     Equipos clasificados a Qatar
                   </p>
-                  <table id="tbl_equipos" class="table table-striped table-bordered">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>Código</th>
-                        <th>País</th>
-                        <th>Clasificado</th>
-                      </tr>
-                    </thead>
-                    <tbody class="tbody_equipos"></tbody>
-                   </table>
+                  <div class="div_tbl_equipos">
+                  
+                  </div>
                   </div>
                   </div>
                   </div>

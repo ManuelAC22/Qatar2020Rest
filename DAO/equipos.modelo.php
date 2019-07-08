@@ -22,8 +22,22 @@ class EquiposModelo {
                 $acceso->cod   = $r->cod;
                 $acceso->pais     = $r->pais;
                 $acceso->clasificado     = $r->clasificado;
-                $acceso->imagen     = $r->imagen;
+                $acceso->image     = $r->image;
                 array_push($result, $acceso);
+            }
+
+            return $result;
+        } catch (Exception $e) {
+            echo die($e->getMessage());
+        }
+    }
+    public function guardarSeleccionado($pais, $select) {
+        try {
+            $result = array();
+            $stm = $this->pdo->prepare("CALL sp_adm_u_equipoSeleccionado('$pais', '$select')");
+            $stm->execute();
+            foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r){
+                array_push($result, $r);
             }
 
             return $result;
