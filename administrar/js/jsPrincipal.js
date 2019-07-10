@@ -390,7 +390,7 @@ var jsGrupos = (function (jsGrupos, undefined) {
 		var aRespuesta = null, oData = {};
 
         var oOptions = {
-            cUrl: 'index.php?controlador=equipos&accion=cargarEquipos',
+            cUrl: 'index.php?controlador=equipos&accion=cargarGrupos',
             oData: oData,
             bAsync: false,
             fComplete: function (oResponse, data) {
