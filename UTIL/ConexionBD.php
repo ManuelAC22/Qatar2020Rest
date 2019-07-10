@@ -8,11 +8,11 @@
   
   public function getconecionBD() {
       try {
-          $this->cn= mysqli_connect(self::SERVER,self::USER, self::PASS, self::DATABASE,self::PORT);
+          return mysqli_connect(self::SERVER,self::USER, self::PASS, self::DATABASE,self::PORT);
       } catch (Exception $exc) {
         
-      }
       return $this->cn;
+      }
       }
 }
 ?>

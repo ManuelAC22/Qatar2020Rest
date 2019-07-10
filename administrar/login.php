@@ -56,16 +56,19 @@ if(isset($_SESSION['dni']) && isset($_SESSION['nombre']) && isset($_SESSION['usu
     <div id="wrapper">
       <div id="login" class="animate form">
         <section class="login_content">
-          <form>
+          <form id="frmLogin" data-parsley-validate>
             <h1>Iniciar Sesión</h1>
             <div>
-              <input type="text" class="form-control" placeholder="Username" required="" />
+              <input type="text" class="form-control" placeholder="DNI" required="" id="dni"/>
             </div>
             <div>
-              <input type="password" class="form-control" placeholder="Password" required="" />
+              <input type="password" class="form-control" placeholder="Contraseña" required="" id="clave"/>
             </div>
             <div>
-              <a class="btn btn-default submit" href="index.html">Log in</a>
+              <span id="respuesta"></span>
+            </div>
+            <div>
+              <span class="btn btn-default submit" id="btnIngresar">Iniciar Sesión</span>
             </div>
             <div class="clearfix"></div>
             <div class="separator">
@@ -82,7 +85,10 @@ if(isset($_SESSION['dni']) && isset($_SESSION['nombre']) && isset($_SESSION['usu
       </div>
     </div>
   </div>
-
+  <!-- form validation -->
+<script type="text/javascript" src="assets/js/util.js"></script>
+<script type="text/javascript" src="administrar/js/jsLogin.js"></script>
+<script type="text/javascript">jsLogin.ready()</script>
 </body>
 
 </html>
