@@ -13,8 +13,10 @@ class ProgramacionDAO {
             while ($fila = mysqli_fetch_assoc($rs)) {
                 array_push($lista['PROGAMACIONES'],
                     array('cod_partido' => $fila['cod_partido'],
-                        'pais1' => $fila['pais_principal'],
-                        'pais2' => $fila['pais_secundario'],
+                        'pais_principal' => $fila['pais_principal'],
+                        'imagen_principal' => $fila['imagen_principal'],
+                        'pais_secundario' => $fila['pais_secundario'],
+                        'imagen_secundario' => $fila['imagen_secundario'],
                         'fecha' => $fila['fecha']));
             }
             mysqli_close($cn);
@@ -22,26 +24,50 @@ class ProgramacionDAO {
         }
         return $lista;
     }
-/*
-    public function GrabarOpinion(OpinionBean $objbean){
+
+    public function ObtenerProgramacionDetallada(ProgramacionBean $objbean){
         $i = 0;
         try {
-            $idopinion = $objbean->getIdopinion();
-            $tituloacopio = $objbean->getTituloacopio();
-            $dniusuario = $objbean->getDniusuario();
-            $opinion = $objbean->getOpinion();
-            $puntaje = $objbean->getPuntaje();
-            $sql = "INSERT INTO `opinion`(`idopinion`, `tituloacopio`, `dniusuario`, `opinion`, `puntaje`) VALUES ('$idopinion','$tituloacopio','$dniusuario','$opinion','$puntaje')";
+            $cod_partido = $objbean->getCod_partido();
+            $sql = "call `obtener_programacion_personalizada`('+$cod_partido+') ";
             $objc = new ConexionBD();
             $cn = $objc->getconecionBD();
-            $i = mysqli_query($cn, $sql);
+            $rs = mysqli_query($cn, $sql);
+            $lista['PROGAMACION'] = array();
+            while ($fila = mysqli_fetch_assoc($rs)) {
+                array_push($lista['PROGAMACION'],
+                    array('cod_partido' => $fila['cod_partido'],
+                        'pais_principal' => $fila['pais_principal'],
+                        'imagen_principal' => $fila['imagen_principal'],
+                        'pais_secundario' => $fila['pais_secundario'],
+                        'imagen_secundario' => $fila['imagen_secundario'],
+                        'fecha' => $fila['fecha']));
+            }
             mysqli_close($cn);
         } catch (Exception $exc) {
-            $i = 0;
         }
-        return $i;
+        return $lista;
     }
 
+    public function ObtenerPaises(){
+        $i = 0;
+        try {
+            $sql = "SELECT `cod`,`image` FROM `paises`";
+            $objc = new ConexionBD();
+            $cn = $objc->getconecionBD();
+            $rs = mysqli_query($cn, $sql);
+            $lista['PAIS'] = array();
+            while ($fila = mysqli_fetch_assoc($rs)) {
+                array_push($lista['PAIS'],
+                    array('cod' => $fila['cod'],
+                        'image' => $fila['image']));
+            }
+            mysqli_close($cn);
+        } catch (Exception $exc) {
+        }
+        return $lista;
+    }
+/*
     public function GenerarCodigo()
     {
         $cod = 0;
