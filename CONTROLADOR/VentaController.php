@@ -16,4 +16,11 @@ switch ($op){
         }
     }
     break;
+    case 2:{
+        $objdao=new VentaDAO();
+        $cod_persona = ($_REQUEST['cod_persona']);
+        $lista = $objdao->ObtenerEntradas($cod_persona);
+        echo json_encode($lista);
+    }
+    break;
 }
