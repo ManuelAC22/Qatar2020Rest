@@ -25,5 +25,17 @@ require_once __DIR__. '/../CONTROLADOR/configuraciones.controlador.php';
         $data = $this->equipos_modelo->guardarSeleccionado($pais, $select);
         return $this->configuraciones->setSuccess($data);
     }
+    public function cargarGrupos() {
+        $data = $this->equipos_modelo->cargarGrupos();
+        return $this->configuraciones->setSuccess($data);
+    }
+    public function guardarCabezaGrupo($pais, $select) {
+        $data = $this->equipos_modelo->guardarCabezaGrupo($pais, $select);
+        return $this->configuraciones->setSuccess($data);
+    }
+    public function generarGrupos($clave) {
+        $data = $this->equipos_modelo->generarGrupos($clave);
+        return $this->configuraciones->setSuccess($data);
+    }
     
  }

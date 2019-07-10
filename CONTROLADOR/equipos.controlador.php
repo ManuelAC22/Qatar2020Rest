@@ -30,5 +30,30 @@ class EquiposControlador {
             echo '';
         }
     }
+    public function cargarGrupos() {
+        $data = $this->equiposNegocio->cargarGrupos();
+        if(!empty($data)){
+            echo $data;
+        } else {
+            echo '';
+        }
+    }
+
+    public function guardarCabezaGrupo() {
+        $data = $this->equiposNegocio->guardarCabezaGrupo($_POST['pais'], $_POST['select']);
+        if(!empty($data)){
+            echo $data;
+        } else {
+            echo '';
+        }
+    }
+    public function generarGrupos() {
+        $data = $this->equiposNegocio->generarGrupos($_POST['clave']);
+        if(!empty($data)){
+            echo $data;
+        } else {
+            echo '';
+        }
+    }
     
 }

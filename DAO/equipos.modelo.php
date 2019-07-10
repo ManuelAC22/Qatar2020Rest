@@ -45,4 +45,47 @@ class EquiposModelo {
             echo die($e->getMessage());
         }
     }
+    public function cargarGrupos() {
+        try {
+            $result = array();
+            $stm = $this->pdo->prepare("CALL sp_adm_s_grupos()");
+            $stm->execute();
+            foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r){
+                array_push($result, $r);
+            }
+
+            return $result;
+        } catch (Exception $e) {
+            echo die($e->getMessage());
+        }
+    }
+    public function guardarCabezaGrupo($pais, $select) {
+        try {
+            $result = array();
+            $stm = $this->pdo->prepare("CALL sp_adm_u_cabezaGrupo('$pais', '$select')");
+            $stm->execute();
+            foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r){
+                array_push($result, $r);
+            }
+
+            return $result;
+        } catch (Exception $e) {
+            echo die($e->getMessage());
+        }
+    }
+
+    public function generarGrupos($clave) {
+        try {
+            $result = array();
+            $stm = $this->pdo->prepare("CALL sp_adm_i_valgrupo('$clave')");
+            $stm->execute();
+            foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r){
+                array_push($result, $r);
+            }
+
+            return $result;
+        } catch (Exception $e) {
+            echo die($e->getMessage());
+        }
+    }
 }
