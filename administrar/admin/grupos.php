@@ -19,6 +19,10 @@
                   <p class="text-muted font-13 m-b-30">
                     <button type="button" class="btn btn-primary generarGrupos" >Generar grupos</button>
                   </p>
+                  <div class="clave" style="display: none;">
+                  	Ingrese clave:
+                  	<input type="password" id="claveGenerar">
+                  </div>
                   <div class="div_tbl_equipos">
                   
                   </div>

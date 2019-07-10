@@ -6,30 +6,30 @@ CREATE PROCEDURE `sp_adm_i_valgrupo`(IN `clave` NVARCHAR(50))
 BEGIN
 declare vclave nvarchar(50);
 declare vcantidad int;
-declare vez int;
+declare vvez int;
 declare vgrupo nvarchar(50);
 
 set vclave = clave;
 
 set vcantidad = (SELECT COUNT(*) from det_grupo where cabeza = '1');
-set vez = (SELECT ifnull(max(vez), 0) from det_grupo);
+set vvez = (SELECT ifnull(max(vez), 0) from det_grupo LIMIT 1);
 
-if vez >= 2
+if vvez > 1
 THEN
-	SELECT 3 as resultado;
+    SELECT 3 as resultado;
 elseif vcantidad = 8
 then
-	if vez = 0
+    if vvez = 0
     THEN
-    	CALL sp_adm_i_grupo(); 
+        CALL sp_adm_i_grupo(); 
             SELECT 1 as resultado;
     ELSE
-    	if vclave = '1qaz2wsx8ik,9ol.'
+        if vclave = '1qaz2wsx8ik,9ol.'
         then
-    		CALL sp_adm_i_grupo(); 
+            CALL sp_adm_i_grupo(); 
             SELECT 1 as resultado;
         ELSE
-        	SELECT 4 as resultado;
+            SELECT 4 as resultado;
         END if;
     end if;
 

@@ -88,4 +88,18 @@ class EquiposModelo {
             echo die($e->getMessage());
         }
     }
+    public function cargarProgramacion() {
+        try {
+            $result = array();
+            $stm = $this->pdo->prepare("CALL sp_adm_s_fixture()");
+            $stm->execute();
+            foreach($stm->fetchAll(PDO::FETCH_OBJ) as $r){
+                array_push($result, $r);
+            }
+
+            return $result;
+        } catch (Exception $e) {
+            echo die($e->getMessage());
+        }
+    }
 }

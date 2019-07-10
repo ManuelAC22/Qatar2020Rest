@@ -303,7 +303,12 @@ var jsGrupos = (function (jsGrupos, undefined) {
         
         $('.generarGrupos').off('click');
         $('.generarGrupos').on('click', function () {
-			var a = JSON.parse(jsGrupos.generarGrupos(''));
+			var a = JSON.parse(jsGrupos.generarGrupos($('#claveGenerar').val()));
+			jsGrupos.respuestaGenerar(a);
+        });    
+    },
+
+    jsGrupos.respuestaGenerar = function (a){
 
 			var resp = a[0].resultado;
 
@@ -325,6 +330,13 @@ var jsGrupos = (function (jsGrupos, undefined) {
                                 text: 'Ya se ha superado el maximo de generaciones',
                                 type: 'warning'
                             });
+			}else if(resp == 4){
+				new PNotify({
+                                title: '',
+                                text: 'Debe ingresar la clave correcta',
+                                type: 'warning'
+                            });
+				$('.clave').show();
 			}else{
 
 				new PNotify({
@@ -334,8 +346,8 @@ var jsGrupos = (function (jsGrupos, undefined) {
                             });
 			}
 				jsGrupos.ready();
-        });    
-    },
+    }
+
 
     jsGrupos.guardarSeleccionado = function (pais, c){
 		var aRespuesta = null, oData = {};
@@ -378,7 +390,7 @@ var jsGrupos = (function (jsGrupos, undefined) {
 		var aRespuesta = null, oData = {};
 
         var oOptions = {
-            cUrl: 'index.php?controlador=equipos&accion=cargarGrupos',
+            cUrl: 'index.php?controlador=equipos&accion=cargarEquipos',
             oData: oData,
             bAsync: false,
             fComplete: function (oResponse, data) {
@@ -395,3 +407,73 @@ var jsGrupos = (function (jsGrupos, undefined) {
 
 })(jsGrupos || {});
 
+
+var jsProg = (function (jsProg, undefined) {
+        
+    jsProg.ready = function (){
+        jsProg.acciones();
+        jsProg.click();
+
+    },
+    jsProg.acciones = function (){
+		jsProg.cargarEquipos();
+        $('#tbl_equipos').dataTable({
+        	"oLanguage": {
+			    "sSearch": "Buscar: "
+			  }
+        });
+    },
+
+    jsProg.cargarEquipos = function (){
+    	var html = '<table id="tbl_equipos" class="table table-striped table-bordered">\
+                    <thead>\
+                      <tr>\
+                        <th>Código</th>\
+                        <th>País 1</th>\
+                        <th>País 2</th>\
+                        <th>Fecha</th>\
+                      </tr>\
+                    </thead>\
+                    <tbody class="tbody_equipos"></tbody>\
+                   </table>'
+		$('.div_tbl_equipos').html(html);
+		var a = jsProg.cargarDatosEquipos();
+		var d = JSON.parse(a);
+
+		var table = '';
+
+		for(var a in d){
+			var i = d[a];
+			table += '<tr>';
+
+			table += '<td>'+i.cod_partido+'</td>';
+			table += '<td>'+i.pais1+'</td>';
+			table += '<td>'+i.pais2+'</td>';
+			table += '<td>'+i.fecha+'</td>';
+
+			table += '</tr>';
+
+		}
+		$('.tbody_equipos').html(table);
+    },
+
+    jsProg.cargarDatosEquipos = function (){
+		var aRespuesta = null, oData = {};
+
+        var oOptions = {
+            cUrl: 'index.php?controlador=equipos&accion=cargarProgramacion',
+            oData: oData,
+            bAsync: false,
+            fComplete: function (oResponse, data) {
+                aRespuesta = (data);
+            }
+        };
+        $.GetUrlData(oOptions);
+		
+		return aRespuesta;
+    }
+
+
+    return jsProg;
+
+})(jsProg || {});

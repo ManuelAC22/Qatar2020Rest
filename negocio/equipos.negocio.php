@@ -37,5 +37,9 @@ require_once __DIR__. '/../CONTROLADOR/configuraciones.controlador.php';
         $data = $this->equipos_modelo->generarGrupos($clave);
         return $this->configuraciones->setSuccess($data);
     }
+    public function cargarProgramacion() {
+        $data = $this->equipos_modelo->cargarProgramacion();
+        return $this->configuraciones->setSuccess($data);
+    }
     
  }

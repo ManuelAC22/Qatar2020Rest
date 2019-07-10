@@ -55,5 +55,13 @@ class EquiposControlador {
             echo '';
         }
     }
+    public function cargarProgramacion() {
+        $data = $this->equiposNegocio->cargarProgramacion();
+        if(!empty($data)){
+            echo $data;
+        } else {
+            echo '';
+        }
+    }
     
 }

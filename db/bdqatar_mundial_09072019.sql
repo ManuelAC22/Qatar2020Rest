@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-07-2019 a las 02:25:43
+-- Tiempo de generación: 10-07-2019 a las 02:48:22
 -- Versión del servidor: 10.1.28-MariaDB
 -- Versión de PHP: 7.1.11
 
@@ -150,20 +150,20 @@ END$$
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_adm_i_valgrupo` (IN `clave` NVARCHAR(50))  BEGIN
 declare vclave nvarchar(50);
 declare vcantidad int;
-declare vez int;
+declare vvez int;
 declare vgrupo nvarchar(50);
 
 set vclave = clave;
 
 set vcantidad = (SELECT COUNT(*) from det_grupo where cabeza = '1');
-set vez = (SELECT ifnull(max(vez), 0) from det_grupo);
+set vvez = (SELECT ifnull(max(vez), 0) from det_grupo LIMIT 1);
 
-if vez >= 2
+if vvez > 1
 THEN
 	SELECT 3 as resultado;
 elseif vcantidad = 8
 then
-	if vez = 0
+	if vvez = 0
     THEN
     	CALL sp_adm_i_grupo(); 
             SELECT 1 as resultado;
@@ -332,10 +332,10 @@ INSERT INTO `det_grupo` (`cod_grupo`, `cod_pais`, `cabeza`, `vez`) VALUES
 ('C', 'AND', '1', 0),
 ('D', 'ATG', '1', 0),
 ('F', 'AUT', '1', 0),
-('H', 'COL', '1', 0),
 ('A', 'AIA', '1', 0),
 ('E', 'ALB', '1', 0),
-('G', 'ARG', '1', 0);
+('G', 'ARG', '1', 0),
+('H', 'ALG', '1', 0);
 
 -- --------------------------------------------------------
 
